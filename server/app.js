@@ -11,6 +11,12 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan("combined"));
 
+app.post("/sendMoney", (req, res) => {
+  res.send({
+    message: "Your money was send",
+    send: req.body
+  });
+});
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Index Page" });
 });
