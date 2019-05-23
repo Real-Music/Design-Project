@@ -2,7 +2,7 @@
   "name": "design-project",
   "version": "1.0.0",
   "description": "A simple payment gateway",
-  "main": "app.js",
+  "main": "server.js",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",

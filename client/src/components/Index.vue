@@ -1,10 +1,35 @@
 <template>
   <div>
     <header>
-      <h1>Transaction Mode</h1>
-      <span>Send Money From:</span>
-      <button>MTN to Orange</button>
-      <button>Orange to MTN</button>
+      <div class="details">
+        <h1>Transaction Mode</h1>
+        <span>Send Money From:</span>
+        <button @click="fromMTN">MTN to Orange</button>
+        <button @click="fromORANGE">Orange to MTN</button>
+      </div>
+      <form action>
+        <div class="one">
+          <label for="senderNum">
+            Sender Number
+            <span v-bind:class="{ mtn: isMTN, 'orange': isOrange }">{{sender}}</span>
+          </label>
+          <input type="text" name="senderNum" id="senderNum">
+        </div>
+        <div class="two">
+          <label for="amt">Amount</label>
+          <input type="text" name="amt" id="amt">
+        </div>
+        <div class="three">
+          <label for="recNum">
+            Reciever Number
+            <span
+              v-bind:class="{ mtn_receiver: isMTN, 'orange_receiver': isOrange }"
+            >{{reciever}}</span>
+          </label>
+          <input type="text" name="recNum" id="recNum">
+        </div>
+        <input type="submit" value="Send">
+      </form>
     </header>
     <section class="about">
       <div class="title">
@@ -92,16 +117,82 @@
 
 <script>
 export default {
-  props: {
-    msg: String
-  },
+  // props: {
+  //   msg: String
+  // },
   data() {
-    return {};
+    return {
+      isMTN: false,
+      isOrange: false,
+      sender: null,
+      reciever: null
+    };
+  },
+  methods: {
+    fromMTN() {
+      this.sender = "(MTN Number)";
+      this.reciever = "(Orange Number)";
+      this.isMTN = true;
+      this.isOrange = false;
+    },
+    fromORANGE() {
+      this.sender = "(Orange Number)";
+      this.reciever = "(MTN Number)";
+      this.isMTN = false;
+      this.isOrange = true;
+    }
+  },
+  mounted() {
+    this.fromMTN();
   }
 };
 </script>
 
 <style lang="scss" scoped>
+form {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  input[type="submit"] {
+    padding: 10px 20px;
+    width: fit-content;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+  div {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    margin: 10px 0;
+    input {
+      padding: 10px;
+      outline: none;
+      border-radius: 5px;
+      border: none;
+    }
+    label {
+      color: var(--white);
+      font-weight: bolder;
+      span {
+        display: inline;
+      }
+      .orange_receiver,
+      .mtn {
+        margin-left: 20px;
+        color: var(--yellow_color);
+      }
+
+      .mtn_receiver,
+      .orange {
+        margin-left: 20px;
+        color: var(--orange_color);
+      }
+    }
+  }
+}
 header {
   // display: grid;
   padding: 30px 0;
